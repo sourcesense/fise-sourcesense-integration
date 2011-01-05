@@ -22,15 +22,6 @@ public class BaseIKSEnhancementPageListener implements EventListener {
 
   private EnrichmentEnginesExecutor enrichmentEnginesExecutor;
 
-  /**
-   * setter for Spring based {@link LabelManager} DI
-   *
-   * @param labelManager handles {@link Label}s' creation
-   */
-  @SuppressWarnings("unused")
-  public void setLabelManager(LabelManager labelManager) {
-    this.labelManager = labelManager;
-  }
 
   @SuppressWarnings("unchecked")
   public Class[] getHandledEventClasses() {
@@ -74,11 +65,21 @@ public class BaseIKSEnhancementPageListener implements EventListener {
   }
 
   private String cleanTag(String tag) {
-    tag = tag.replaceAll("[-|_|,|:|;]"," ");
-    return tag;
+    return tag.replaceAll("[-|_|,|:|;]"," ");
   }
 
+  @SuppressWarnings("unused")
   public void setEnrichmentEnginesExecutor(EnrichmentEnginesExecutor enrichmentEnginesExecutor) {
     this.enrichmentEnginesExecutor = enrichmentEnginesExecutor;
+  }
+
+  /**
+   * setter for Spring based {@link LabelManager} DI
+   *
+   * @param labelManager handles {@link Label}s' creation
+   */
+  @SuppressWarnings("unused")
+  public void setLabelManager(LabelManager labelManager) {
+    this.labelManager = labelManager;
   }
 }
