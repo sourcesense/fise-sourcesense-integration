@@ -69,7 +69,7 @@ public class BaseIKSEnhancementPageListener implements EventListener {
       }
 
     } catch (Throwable e) {
-      e.printStackTrace();
+      // do nothing - this should be error safe
     }
   }
 
