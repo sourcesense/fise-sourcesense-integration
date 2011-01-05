@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+	Licensed to the Apache Software Foundation (ASF) under one or more
+	contributor license agreements.  See the NOTICE file distributed with
+	this work for additional information regarding copyright ownership.
+	The ASF licenses this file to You under the Apache License, Version 2.0
+	(the "License"); you may not use this file except in compliance with
+	the License.  You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+	
+-->
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+<beans>
+	
+	<!-- Business logic for IKS Fise for using with the custom action (with transaction level) -->
+	<bean id="iksFiseAlfrescoBlForAction" class="eu.iksproject.fise.sourcesense.alfresco.bl.IKSFiseAlfrescoBl">
+		<property name="nodeService" ref="NodeService"/>
+		<property name="contentService" ref="ContentService"/>
+	</bean>
+	
+	<!-- Business logic for IKS Fise for using with the custom behaviour (without transaction level) -->
+	<bean id="iksFiseAlfrescoBlForBehaviour" class="eu.iksproject.fise.sourcesense.alfresco.bl.IKSFiseAlfrescoBl">
+		<property name="nodeService" ref="nodeService"/>
+		<property name="contentService" ref="contentService"/>
+	</bean>
+	
+	<!-- IKS - FISE custom behaviour that will start for each new content in Alfresco -->
+	<bean id="iksFiseEnrichBehaviour" 
+	      class="eu.iksproject.fise.sourcesense.alfresco.policies.FISEExtractAndEnrichContentPolicy"
+	      init-method="init">
+		<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
+		<property name="contentService" ref="contentService"/>
+		<property name="policyComponent" ref="policyComponent"/>
+	</bean>
+	
+    <!-- IKS - FISE Enrich configurable action in any space in Alfresco -->
+    <bean id="iks-fise-enrich-action" class="eu.iksproject.fise.sourcesense.alfresco.actions.FISEExtractAndEnrichContentAction" parent="action-executer">
+    	<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForAction"/>
+    </bean>
+    
+    <!--  IKS - FISE Enrich Action Resource Bundle -->
+   	<bean id="iks-fise-enrich-action-messages" class="org.alfresco.i18n.ResourceBundleBootstrapComponent">
+    	<property name="resourceBundles">
+    		<list>
+    			<value>eu.iksproject.fise.sourcesense.alfresco.actions.iks-fise-enrich-action-messages</value>
+    		</list>
+    	</property>
+   	</bean>
+    
+</beans>

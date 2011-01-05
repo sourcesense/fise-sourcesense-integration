@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://purl.org/dc/terms/"
+    xmlns:j.1="http://fise.iks-project.eu/ontology/" > 
+  <rdf:Description rdf:about="urn:enhancement-f6581ad8-64d9-1e77-5a99-ee80e497ac2d">
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/Enhancement"/>
+    <j.1:extracted-from rdf:resource="urn:content-item-sha1-8a7ba8633688aeec5fc91651a8bd3eeaa2495e83"/>
+    <j.0:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-11-02T12:36:58.380+01:00</j.0:created>
+    <j.0:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eu.iksproject.fise.engines.autotagging.impl.EntityMentionEnhancementEngine</j.0:creator>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/EntityAnnotation"/>
+    <j.0:relation rdf:resource="urn:enhancement-b4c248ef-e168-f6a0-b360-6502af15f662"/>
+    <j.1:entity-reference rdf:resource="http://dbpedia.org/resource/United_Kingdom"/>
+    <j.1:entity-label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">United Kingdom</j.1:entity-label>
+    <j.1:confidence rdf:datatype="http://www.w3.org/2001/XMLSchema#double">6.05015230178833</j.1:confidence>
+    <j.1:entity-type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/Place"/>
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/PopulatedPlace"/>
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/Country"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:enhancement-b4c248ef-e168-f6a0-b360-6502af15f662">
+    <j.1:selected-text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">United Kingdom</j.1:selected-text>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/TextAnnotation"/>
+    <j.0:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine</j.0:creator>
+    <j.0:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-11-02T12:36:58.367+01:00</j.0:created>
+    <j.1:extracted-from rdf:resource="urn:content-item-sha1-8a7ba8633688aeec5fc91651a8bd3eeaa2495e83"/>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/Enhancement"/>
+    <j.1:selection-context rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Furthermore fise is currently not able to extract the relation between the entity "David Cameron" and the entity "United Kingdom". In future versions of fise we plan to extract the role "prime minister" that links the person to the country.</j.1:selection-context>
+    <j.0:type rdf:resource="http://dbpedia.org/ontology/Place"/>
+    <j.1:confidence rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.6160124577553212</j.1:confidence>
+    <j.1:start rdf:datatype="http://www.w3.org/2001/XMLSchema#int">253</j.1:start>
+    <j.1:end rdf:datatype="http://www.w3.org/2001/XMLSchema#int">267</j.1:end>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:enhancement-7b4bfc7a-65e3-c546-41a0-614f74a0d932">
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/Enhancement"/>
+    <j.1:extracted-from rdf:resource="urn:content-item-sha1-8a7ba8633688aeec5fc91651a8bd3eeaa2495e83"/>
+    <j.0:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-11-02T12:36:58.359+01:00</j.0:created>
+    <j.0:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine</j.0:creator>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/TextAnnotation"/>
+    <j.1:selected-text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">David Cameron "</j.1:selected-text>
+    <j.1:selection-context rdf:datatype="http://www.w3.org/2001/XMLSchema#string">"David Cameron" is detected as a person but not recognized since the fise index was built on a DBpedia dump extracted before his election. Furthermore fise is currently not able to extract the relation between the entity "David Cameron" and the entity "United Kingdom".</j.1:selection-context>
+    <j.0:type rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <j.1:confidence rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.8692136466822535</j.1:confidence>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:enhancement-7053ec76-5364-464c-71d0-a35ca07623ef">
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/Country"/>
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/PopulatedPlace"/>
+    <j.1:entity-type rdf:resource="http://dbpedia.org/ontology/Place"/>
+    <j.1:entity-type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <j.1:confidence rdf:datatype="http://www.w3.org/2001/XMLSchema#double">2.5929226875305176</j.1:confidence>
+    <j.1:entity-label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">United Kingdom of Great Britain and Ireland</j.1:entity-label>
+    <j.1:entity-reference rdf:resource="http://dbpedia.org/resource/United_Kingdom_of_Great_Britain_and_Ireland"/>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/Enhancement"/>
+    <j.1:extracted-from rdf:resource="urn:content-item-sha1-8a7ba8633688aeec5fc91651a8bd3eeaa2495e83"/>
+    <j.0:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-11-02T12:36:58.380+01:00</j.0:created>
+    <j.0:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eu.iksproject.fise.engines.autotagging.impl.EntityMentionEnhancementEngine</j.0:creator>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/EntityAnnotation"/>
+    <j.0:relation rdf:resource="urn:enhancement-b4c248ef-e168-f6a0-b360-6502af15f662"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:enhancement-ff6763dd-9d4f-a6a9-ba09-20ee007de600">
+    <j.0:relation rdf:resource="urn:enhancement-7b4bfc7a-65e3-c546-41a0-614f74a0d932"/>
+    <j.1:confidence rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.7154577459281994</j.1:confidence>
+    <j.0:type rdf:resource="http://dbpedia.org/ontology/Person"/>
+    <j.1:selection-context rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Furthermore fise is currently not able to extract the relation between the entity "David Cameron" and the entity "United Kingdom". In future versions of fise we plan to extract the role "prime minister" that links the person to the country.</j.1:selection-context>
+    <j.1:selected-text rdf:datatype="http://www.w3.org/2001/XMLSchema#string">David Cameron "</j.1:selected-text>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/TextAnnotation"/>
+    <rdf:type rdf:resource="http://fise.iks-project.eu/ontology/Enhancement"/>
+    <j.1:extracted-from rdf:resource="urn:content-item-sha1-8a7ba8633688aeec5fc91651a8bd3eeaa2495e83"/>
+    <j.0:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2010-11-02T12:36:58.359+01:00</j.0:created>
+    <j.0:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine</j.0:creator>
+  </rdf:Description>
+</rdf:RDF>
