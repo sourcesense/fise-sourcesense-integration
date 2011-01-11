@@ -1,0 +1,52 @@
+== Introduction ==
+
+This is the Sourcesense project for integration of Confluence/Alfresco with IKS FISE Enrichment engine.
+
+== Confluence plugin ==
+
+The Confluence plugin works with a listener object which handles event on pages and blogposts, get the page content and
+send it over to a FISE remote server or to a bundled FISE service.
+
+The result appears in labels which are automatically generated with the entities extracted by FISE.
+
+The enrichment engine service/executor can be plugged with Spring enabled components in Confluence defining an implementation
+of the EnrichmentEngineExecutor interface and then plugging it in the Maven profile with the following xml snippet:
+
+{{{
+
+   <profile>
+      <id>newprofile</id>
+      <properties>
+        <profile.id>newprofile</profile.id>
+        <executor.implementation>eu.iksproject.fise.sourcesense.confluence.DummyEnrichmentEnginesExecutor</executor.implementation>
+      </properties>
+    </profile>
+
+}}}
+
+=== Remote version ===
+
+The remote version of the plugin sends enrichment requests to a remote server via the FISEServerEnrichmentEnginesExecutor implementation.
+The remote server is a demo instance provided by Nuxeo but the FISE URL can be changed to address some other FISE server remote instance.
+Note that the Nuxeo FISE has 4 engines enabled but only the enrichments coming from the openNLP one are taken into account.
+To build the plugin with the remote version use
+{{{
+  mvn -Premote package
+}}}
+then install the jarname-remote-jar-with-dependencies.jar package in Confluence via the admin UI.
+
+=== Bundled version ===
+
+The bundled version of the IKS Confluence plugin uses a non-OSGi version of the openNLP NER FISE service.
+Since the openNLP NER requires at least a -XmX1024m in the Confluence JVM (due to NLP models) be sure that this requirement is met before
+installing it.
+
+To build the plugin with the bundled version use
+{{{
+  mvn -Pbundled package
+}}}
+then install the jarname-bundled-jar-with-dependencies.jar package in Confluence via the admin UI.
+
+
+== Alfresco plugin ==
+See the README.txt under alfresc-integration module.
