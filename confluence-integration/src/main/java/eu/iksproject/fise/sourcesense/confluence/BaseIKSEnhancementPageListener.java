@@ -65,7 +65,7 @@ public class BaseIKSEnhancementPageListener implements EventListener {
   }
 
   private String cleanTag(String tag) {
-    return tag.replaceAll("[-|_|,|:|;]"," ");
+    return tag.replaceAll("[-|_|,|+|:|;|@|/|%|\\||&|!|\n|#|$|\\*|~|\\[|\\]|\\(|\\)|\\{|\\}|<|>|\\\\]"," ");
   }
 
   @SuppressWarnings("unused")
