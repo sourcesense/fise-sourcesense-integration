@@ -4,7 +4,7 @@ This is the Sourcesense project for integration of Confluence/Alfresco with IKS 
 
 == Confluence plugin ==
 
-The Confluence plugin works with a listener object which handles event on pages and blogposts, get the page content and
+The Confluence plugin works with a listener object which handles event on pages and blog posts, get the page content and
 send it over to a FISE remote server or to a bundled FISE service.
 
 The result appears in labels which are automatically generated with the entities extracted by FISE.
@@ -28,7 +28,7 @@ of the EnrichmentEngineExecutor interface and then plugging it in the Maven prof
 
 The remote version of the plugin sends enrichment requests to a remote server via the FISEServerEnrichmentEnginesExecutor implementation.
 The remote server is a demo instance provided by Nuxeo but the FISE URL can be changed to address some other FISE server remote instance.
-Note that the Nuxeo FISE has 4 engines enabled but only the enrichments coming from the openNLP one are taken into account.
+Note that the Nuxeo FISE has 4 engines enabled but only the enrichment coming from the openNLP one are taken into account.
 To build the plugin with the remote version use
 {{{
   mvn -Premote package
@@ -49,4 +49,4 @@ then install the jarname-bundled-jar-with-dependencies.jar package in Confluence
 
 
 == Alfresco plugin ==
-See the README.txt under alfresc-integration module.
+See the README.txt under alfresco-integration module.
