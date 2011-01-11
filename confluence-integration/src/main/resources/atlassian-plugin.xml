@@ -10,7 +10,7 @@
       <description>Everytime a page is created inside Confluence, also some semantic metadata extraction is extracted and saved via IKS FISE.</description>
    </listener>
 
-  <component key="enrichmentEnginesExecutor" class="eu.iksproject.fise.sourcesense.confluence.OpenNLPEngineEnrichmentEnginesExecutor">
+  <component key="enrichmentEnginesExecutor" class="${executor.implementation}">
       <description>Autotagging service implementation</description>
       <interface>eu.iksproject.fise.sourcesense.confluence.EnrichmentEnginesExecutor</interface>
   </component>

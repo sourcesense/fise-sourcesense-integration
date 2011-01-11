@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * Confluence page listener for IKS enhancement engine
- *
  */
 public class BaseIKSEnhancementPageListener implements EventListener {
 
@@ -37,35 +36,41 @@ public class BaseIKSEnhancementPageListener implements EventListener {
       else if (pageEvent instanceof BlogPostEvent)
         page = ((BlogPostEvent) pageEvent).getBlogPost();
       else
-        throw new RuntimeException("unexpected event "+event.toString());
+        throw new RuntimeException("unexpected event " + event.toString());
 
 
       enrichmentEnginesExecutor = (EnrichmentEnginesExecutor) ContainerManager.getComponent("enrichmentEnginesExecutor");
 
       String pageContent = page.getContent();
-      if (pageContent != null && !"".equals(pageContent)) {
+      if (pageContent != null && pageContent.length() > 0) {
         for (String tag : enrichmentEnginesExecutor.getTags(pageContent)) {
           tag = cleanTag(tag); // clean tags from unwanted chars
-          if (tag.length() > 2) {
-            List<Label> pageLabels = page.getLabels();
-            Label label = new Label(tag);
-            if (!pageLabels.contains(label)) {
-              if (labelManager.getLabel(label) == null)
-                labelManager.createLabel(label);
-              labelManager.addLabel(page, labelManager.getLabel(label));
-            }
+          if (tag.length() > 2 && tag.length() < 255) {
+            addTag(page, tag);
           }
         }
-
       }
-
     } catch (Throwable e) {
       // do nothing - this should be error safe
     }
   }
 
+  private void addTag(AbstractPage page, String tag) {
+    try {
+      List<Label> pageLabels = page.getLabels();
+      Label label = new Label(tag);
+      if (!pageLabels.contains(label)) {
+        if (labelManager.getLabel(label) == null)
+          labelManager.createLabel(label);
+        labelManager.addLabel(page, labelManager.getLabel(label));
+      }
+    } catch (Exception e) {
+      // a tag could not be added for some reason
+    }
+  }
+
   private String cleanTag(String tag) {
-    return tag.replaceAll("[-|_|,|+|:|;|@|/|%|\\||&|!|\n|#|$|\\*|~|\\[|\\]|\\(|\\)|\\{|\\}|<|>|\\\\]"," ");
+    return tag.replaceAll("\\W", " ");
   }
 
   @SuppressWarnings("unused")
