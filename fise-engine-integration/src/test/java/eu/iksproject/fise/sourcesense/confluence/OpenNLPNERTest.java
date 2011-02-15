@@ -23,7 +23,7 @@ public class OpenNLPNERTest {
       assertTrue(tags!=null);
       assertTrue(tags.size()>0);
       for (String tag : tags) {
-        System.err.println(tag);
+        assertTrue(tag!=null && tag.length()>0);
       }
     }
     catch (Exception e) {
