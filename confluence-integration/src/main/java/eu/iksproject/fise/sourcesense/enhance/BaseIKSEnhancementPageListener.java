@@ -1,8 +1,12 @@
-package eu.iksproject.fise.sourcesense.confluence;
+package eu.iksproject.fise.sourcesense.enhance;
 
 import com.atlassian.confluence.event.events.content.ContentEvent;
+import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostEvent;
+import com.atlassian.confluence.event.events.content.blogpost.BlogPostUpdateEvent;
+import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.content.page.PageEvent;
+import com.atlassian.confluence.event.events.content.page.PageUpdateEvent;
 import com.atlassian.confluence.labels.Label;
 import com.atlassian.confluence.labels.LabelManager;
 import com.atlassian.confluence.pages.AbstractPage;
@@ -24,7 +28,7 @@ public class BaseIKSEnhancementPageListener implements EventListener {
 
   @SuppressWarnings("unchecked")
   public Class[] getHandledEventClasses() {
-    return new Class[]{PageEvent.class, BlogPostEvent.class};
+    return new Class[]{PageUpdateEvent.class, PageCreateEvent.class, BlogPostUpdateEvent.class, BlogPostCreateEvent.class};
   }
 
   public void handleEvent(Event event) {

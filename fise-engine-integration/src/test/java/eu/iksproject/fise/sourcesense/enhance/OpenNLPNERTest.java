@@ -1,4 +1,4 @@
-package eu.iksproject.fise.sourcesense.confluence;
+package eu.iksproject.fise.sourcesense.enhance;
 
 import org.junit.Test;
 

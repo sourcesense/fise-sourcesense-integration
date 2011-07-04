@@ -1,4 +1,4 @@
-package eu.iksproject.fise.sourcesense.confluence.utils;
+package eu.iksproject.fise.sourcesense.enhance.utils;
 
 import eu.iksproject.fise.engines.autotagging.impl.ConfiguredAutotaggerProvider;
 import eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine;

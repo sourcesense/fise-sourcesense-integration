@@ -1,4 +1,4 @@
-package eu.iksproject.fise.sourcesense.confluence.utils;
+package eu.iksproject.fise.sourcesense.enhance.utils;
 
 import org.apache.clerezza.rdf.core.*;
 import org.apache.clerezza.rdf.core.impl.PlainLiteralImpl;

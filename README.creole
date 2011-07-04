@@ -18,7 +18,7 @@ of the EnrichmentEngineExecutor interface and then plugging it in the Maven prof
       <id>newprofile</id>
       <properties>
         <profile.id>newprofile</profile.id>
-        <executor.implementation>eu.iksproject.fise.sourcesense.confluence.DummyEnrichmentEnginesExecutor</executor.implementation>
+        <executor.implementation>eu.iksproject.fise.sourcesense.enhance.DummyEnrichmentEnginesExecutor</executor.implementation>
       </properties>
     </profile>
 

@@ -1,6 +1,6 @@
-package eu.iksproject.fise.sourcesense.confluence;
+package eu.iksproject.fise.sourcesense.enhance;
 
-import eu.iksproject.fise.sourcesense.confluence.utils.RDFJsonParsingProviderNoLog;
+import eu.iksproject.fise.sourcesense.enhance.utils.RDFJsonParsingProviderNoLog;
 import org.apache.clerezza.rdf.core.MGraph;
 import org.apache.clerezza.rdf.core.Triple;
 import org.apache.clerezza.rdf.core.UriRef;
@@ -22,12 +22,11 @@ import java.util.Iterator;
  */
 public class FISEServerEnrichmentEnginesExecutor implements EnrichmentEnginesExecutor {
 
-//  private static final String LABEL_URI = "http://fise.iks-project.eu/ontology/entity-label";
   private static final String SELECTED_TEXT_URI = "http://fise.iks-project.eu/ontology/selected-text";
   private static final String OBJECT_XMLSCHEMA_STRING = "^^<http://www.w3.org/2001/XMLSchema#string>";
   private static final String TEXT_PLAIN = "text/plain";
 
-  private static final URI fiseURI = URI.create("http://fise.demo.nuxeo.com/engines/");
+  private static final URI fiseURI = URI.create("http://stanbol-vm.apache.org:8080/engines/");
 
   public Collection<String> getTags(String content) throws Exception {
     URLConnection urlConn = fiseURI.toURL().openConnection();
@@ -35,31 +34,41 @@ public class FISEServerEnrichmentEnginesExecutor implements EnrichmentEnginesExe
     return extractTags(urlConn);
   }
 
-  private Collection<String> extractTags(URLConnection urlConn) {
+  private Collection<String> extractTags(URLConnection urlConn) throws IOException {
     Collection<String> tags = new HashSet<String>();
+    InputStream enrichedContentStream = null;
     try {
-      InputStream enrichedContentStream = new BufferedInputStream(urlConn.getInputStream());
+      enrichedContentStream = new BufferedInputStream(urlConn.getInputStream());
 
       RDFJsonParsingProviderNoLog provider = new RDFJsonParsingProviderNoLog();
       MGraph deserializedGraph = new SimpleMGraph();
-      provider.parse(deserializedGraph,enrichedContentStream, SupportedFormat.RDF_JSON, null);
+      provider.parse(deserializedGraph, enrichedContentStream, SupportedFormat.RDF_JSON, null);
 
 
-//      UriRef label = new UriRef(LABEL_URI);
       UriRef entity = new UriRef(SELECTED_TEXT_URI);
-      for (Iterator<Triple> it = deserializedGraph.iterator(); it.hasNext();) {
+      for (Iterator<Triple> it = deserializedGraph.iterator(); it.hasNext(); ) {
         Triple triple = it.next();
-//        if (triple.getPredicate().equals(label) || triple.getPredicate().equals(entity)) {
         if (triple.getPredicate().equals(entity)) {
           String labelExtracted = triple.getObject().toString();
           String finalLabel = labelExtracted.replace(OBJECT_XMLSCHEMA_STRING, "");
           tags.add(finalLabel.replaceAll("\\\"", ""));
         }
       }
-    } catch (IOException e) {
+    } finally {
+      closeQuietly(enrichedContentStream);
     }
 
     return tags;
+  }
+
+  private void closeQuietly(InputStream enrichedContentStream) {
+    if (enrichedContentStream != null) {
+      try {
+        enrichedContentStream.close();
+      } catch (IOException e1) {
+        enrichedContentStream = null;
+      }
+    }
   }
 
   private void sendContent(String pageContent, URLConnection urlConn) throws IOException {

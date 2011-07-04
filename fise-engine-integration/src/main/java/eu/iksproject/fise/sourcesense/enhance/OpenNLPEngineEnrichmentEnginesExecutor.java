@@ -1,7 +1,7 @@
-package eu.iksproject.fise.sourcesense.confluence;
+package eu.iksproject.fise.sourcesense.enhance;
 
 import eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine;
-import eu.iksproject.fise.sourcesense.confluence.utils.MockedNamedEntityExtractionEnhancementEngine;
+import eu.iksproject.fise.sourcesense.enhance.utils.MockedNamedEntityExtractionEnhancementEngine;
 
 import java.util.Collection;
 import java.util.HashSet;

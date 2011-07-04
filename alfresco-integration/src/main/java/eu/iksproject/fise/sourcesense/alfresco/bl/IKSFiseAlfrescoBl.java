@@ -1,7 +1,7 @@
 package eu.iksproject.fise.sourcesense.alfresco.bl;
 
-import eu.iksproject.fise.sourcesense.confluence.EnrichmentEnginesExecutor;
-import eu.iksproject.fise.sourcesense.confluence.OpenNLPEngineEnrichmentEnginesExecutor;
+import eu.iksproject.fise.sourcesense.enhance.EnrichmentEnginesExecutor;
+import eu.iksproject.fise.sourcesense.enhance.OpenNLPEngineEnrichmentEnginesExecutor;
 import org.alfresco.model.ContentModel;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;

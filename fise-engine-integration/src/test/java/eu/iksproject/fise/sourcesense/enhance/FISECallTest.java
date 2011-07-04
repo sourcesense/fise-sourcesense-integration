@@ -1,6 +1,6 @@
-package eu.iksproject.fise.sourcesense.confluence;
+package eu.iksproject.fise.sourcesense.enhance;
 
-import eu.iksproject.fise.sourcesense.confluence.utils.RDFJsonParsingProviderNoLog;
+import eu.iksproject.fise.sourcesense.enhance.utils.RDFJsonParsingProviderNoLog;
 import org.apache.clerezza.rdf.core.MGraph;
 import org.apache.clerezza.rdf.core.impl.SimpleMGraph;
 import org.apache.clerezza.rdf.core.serializedform.SupportedFormat;

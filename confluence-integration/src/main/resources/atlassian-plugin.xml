@@ -1,18 +1,18 @@
-<atlassian-plugin name='IKS-FISE Confluence integration' key='eu.iksproject.fise.sourcesense.confluence'>
+<atlassian-plugin name='IKS-FISE Confluence integration' key='eu.iksproject.fise.sourcesense.enhance'>
    <plugin-info>
       <description>IKS-FISE Confluence integration</description>
       <vendor name="Sourcesense" url="http://www.sourcesense.com" />
       <version>1.0</version>
    </plugin-info>
 
-   <listener name='IKS-FISE Page creation Listener' class='eu.iksproject.fise.sourcesense.confluence.BaseIKSEnhancementPageListener'
+   <listener name='IKS-FISE Page creation Listener' class='eu.iksproject.fise.sourcesense.enhance.BaseIKSEnhancementPageListener'
       key='fise-page-listener'>
       <description>Everytime a page is created inside Confluence, also some semantic metadata extraction is extracted and saved via IKS FISE.</description>
    </listener>
 
   <component key="enrichmentEnginesExecutor" class="${executor.implementation}">
       <description>Autotagging service implementation</description>
-      <interface>eu.iksproject.fise.sourcesense.confluence.EnrichmentEnginesExecutor</interface>
+      <interface>eu.iksproject.fise.sourcesense.enhance.EnrichmentEnginesExecutor</interface>
   </component>
 
 </atlassian-plugin>
