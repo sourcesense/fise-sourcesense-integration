@@ -27,7 +27,7 @@
   <distributionManagement>
     <site>
       <id>github</id>
-      <url>gitsite:git@github.com/sourcesense/TUO-PROGETTO.git</url>
+      <url>gitsite:git@github.com/sourcesense/fise-sourcesense.integration.git</url>
     </site>
   </distributionManagement>
 </project>
