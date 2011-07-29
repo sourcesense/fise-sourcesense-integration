@@ -15,5 +15,10 @@
       <interface>eu.iksproject.fise.sourcesense.enhance.EnrichmentEnginesExecutor</interface>
   </component>
 
+  <component key="tagCleaner" class="eu.iksproject.fise.sourcesense.enhance.SimpleTagCleaner">
+    <description>Tag cleaning policy</description>
+    <interface>eu.iksproject.fise.sourcesense.enhance.TagCleaner</interface>
+  </component>
+
 </atlassian-plugin>
 

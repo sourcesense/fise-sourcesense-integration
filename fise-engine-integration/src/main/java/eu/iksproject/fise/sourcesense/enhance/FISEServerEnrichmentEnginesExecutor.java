@@ -28,14 +28,14 @@ public class FISEServerEnrichmentEnginesExecutor implements EnrichmentEnginesExe
 
   private static final URI fiseURI = URI.create("http://stanbol-vm.apache.org:8080/engines/");
 
-  public Collection<String> getTags(String content) throws Exception {
+  public Collection<Tag> getTags(String content) throws Exception {
     URLConnection urlConn = fiseURI.toURL().openConnection();
     sendContent(content, urlConn);
     return extractTags(urlConn);
   }
 
-  private Collection<String> extractTags(URLConnection urlConn) throws IOException {
-    Collection<String> tags = new HashSet<String>();
+  private Collection<Tag> extractTags(URLConnection urlConn) throws IOException {
+    Collection<Tag> tags = new HashSet<Tag>();
     InputStream enrichedContentStream = null;
     try {
       enrichedContentStream = new BufferedInputStream(urlConn.getInputStream());
@@ -51,7 +51,9 @@ public class FISEServerEnrichmentEnginesExecutor implements EnrichmentEnginesExe
         if (triple.getPredicate().equals(entity)) {
           String labelExtracted = triple.getObject().toString();
           String finalLabel = labelExtracted.replace(OBJECT_XMLSCHEMA_STRING, "");
-          tags.add(finalLabel.replaceAll("\\\"", ""));
+          Tag tag = new Tag(finalLabel.replaceAll("\\\"", ""));
+          // TODO : add relevance, if presentt
+          tags.add(tag);
         }
       }
     } finally {

@@ -25,6 +25,8 @@ public class BaseIKSEnhancementPageListener implements EventListener {
 
   private EnrichmentEnginesExecutor enrichmentEnginesExecutor;
 
+  private TagCleaner tagCleaner;
+
 
   @SuppressWarnings("unchecked")
   public Class[] getHandledEventClasses() {
@@ -47,10 +49,10 @@ public class BaseIKSEnhancementPageListener implements EventListener {
 
       String pageContent = page.getContent();
       if (pageContent != null && pageContent.length() > 0) {
-        for (String tag : enrichmentEnginesExecutor.getTags(pageContent)) {
-          tag = cleanTag(tag); // clean tags from unwanted chars
-          if (tag.length() > 2 && tag.length() < 255) {
-            addTag(page, tag);
+        for (Tag tag : enrichmentEnginesExecutor.getTags(pageContent)) {
+          tagCleaner.clean(tag); // clean tags from unwanted chars
+          if (tag.getContent().length() > 2 && tag.getContent().length() < 255) {
+            addTag(page, tag.getContent());
           }
         }
       }
@@ -71,10 +73,6 @@ public class BaseIKSEnhancementPageListener implements EventListener {
     } catch (Exception e) {
       // a tag could not be added for some reason
     }
-  }
-
-  private String cleanTag(String tag) {
-    return tag.replaceAll("\\W", " ");
   }
 
   @SuppressWarnings("unused")

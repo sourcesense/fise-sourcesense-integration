@@ -7,6 +7,6 @@ import java.util.Collection;
  */
 public interface EnrichmentEnginesExecutor {
 
-  Collection<String> getTags(String content) throws Exception;
+  Collection<Tag> getTags(String content) throws Exception;
 
 }
