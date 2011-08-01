@@ -1,9 +1,11 @@
 package eu.iksproject.fise.sourcesense.enhance;
 
+import java.io.Serializable;
+
 /**
  * A page tag
  */
-public class Tag {
+public class Tag implements Serializable{
   private String content;
   private Double relevance;
 
@@ -33,4 +35,8 @@ public class Tag {
     this.content = content;
   }
 
+  @Override
+  public String toString() {
+    return content;
+  }
 }

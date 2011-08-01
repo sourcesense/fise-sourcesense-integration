@@ -2,6 +2,7 @@ package eu.iksproject.fise.sourcesense.alfresco.bl;
 
 import eu.iksproject.fise.sourcesense.enhance.EnrichmentEnginesExecutor;
 import eu.iksproject.fise.sourcesense.enhance.OpenNLPEngineEnrichmentEnginesExecutor;
+import eu.iksproject.fise.sourcesense.enhance.Tag;
 import org.alfresco.model.ContentModel;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;
@@ -63,7 +64,7 @@ public class IKSFiseAlfrescoBl {
         initializeEnrichmentEnginesExecutor();
       try {
         log.debug("Integration with FISE: Connecting...");
-        Collection<String> tags = enrichmentEnginesExecutor.getTags(content);
+        Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
 
         log.debug("Saving new properties in the node: " + nodeRef);
 
