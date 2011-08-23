@@ -80,6 +80,10 @@ public class BaseIKSEnhancementPageListener implements EventListener {
     this.enrichmentEnginesExecutor = enrichmentEnginesExecutor;
   }
 
+  public void setTagCleaner(TagCleaner tagCleaner) {
+    this.tagCleaner = tagCleaner;
+  }
+
   /**
    * setter for Spring based {@link LabelManager} DI
    *
