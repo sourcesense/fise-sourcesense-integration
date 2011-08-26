@@ -8,13 +8,13 @@
     <artifactId>atlassian-sourcesense-parent</artifactId>
     <version>1.0.22</version>
   </parent>
-  <groupId>eu.iksproject.fise.sourcesense</groupId>
+  <groupId>com.sourcesense.iksproject</groupId>
   <artifactId>iks-confluence-integration</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>confluence-integration</name>
   <dependencies>
     <dependency>
-      <groupId>eu.iksproject.fise.sourcesense</groupId>
+      <groupId>com.sourcesense.iksproject</groupId>
       <artifactId>fise-engine-integration</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

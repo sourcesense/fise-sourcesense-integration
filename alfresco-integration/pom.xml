@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>sourcesense-integration</artifactId>
-    <groupId>eu.iksproject.fise.sourcesense</groupId>
+    <groupId>com.sourcesense.iksproject</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>eu.iksproject.fise.sourcesense</groupId>
+  <groupId>org.apache.stanbol.enhancer.sourcesense</groupId>
   <artifactId>alfresco-integration</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>IKS Fise - Alfresco Integration</name>
@@ -125,7 +125,7 @@
       <version>5.0.3</version>
     </dependency>
     <dependency>
-      <groupId>eu.iksproject.fise.sourcesense</groupId>
+      <groupId>com.sourcesense.iksproject</groupId>
       <artifactId>fise-engine-integration</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

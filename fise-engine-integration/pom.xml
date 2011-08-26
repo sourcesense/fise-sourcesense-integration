@@ -4,11 +4,11 @@
         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>eu.iksproject</groupId>
-    <artifactId>eu.iksproject.fise.parent</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <groupId>org.apache.stanbol</groupId>
+    <artifactId>org.apache.stanbol.enhancer.parent</artifactId>
+    <version>0.9.0-incubating-SNAPSHOT</version>
   </parent>
-  <groupId>eu.iksproject.fise.sourcesense</groupId>
+  <groupId>com.sourcesense.iksproject</groupId>
   <artifactId>fise-engine-integration</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>fise-engine-integration</name>
@@ -45,19 +45,19 @@
       <version>1.4</version>
     </dependency>
     <dependency>
-      <groupId>eu.iksproject</groupId>
-      <artifactId>eu.iksproject.fise.engines.opennlp.ner</artifactId>
-      <version>0.9-SNAPSHOT</version>
+      <groupId>org.apache.stanbol</groupId>
+      <artifactId>org.apache.stanbol.enhancer.engines.opennlp.ner</artifactId>
+      <version>0.9.0-incubating-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>eu.iksproject</groupId>
-      <artifactId>eu.iksproject.fise.servicesapi</artifactId>
-      <version>0.9-SNAPSHOT</version>
+      <groupId>org.apache.stanbol</groupId>
+      <artifactId>org.apache.stanbol.enhancer.servicesapi</artifactId>
+      <version>0.9.0-incubating-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>eu.iksproject</groupId>
-      <artifactId>eu.iksproject.fise.engines.autotagging</artifactId>
-      <version>0.9-SNAPSHOT</version>
+      <groupId>org.apache.stanbol</groupId>
+      <artifactId>org.apache.stanbol.enhancer.engines.autotagging</artifactId>
+      <version>0.9.0-incubating-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
