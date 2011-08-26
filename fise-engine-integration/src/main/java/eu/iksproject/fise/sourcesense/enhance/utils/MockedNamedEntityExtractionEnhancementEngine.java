@@ -1,7 +1,7 @@
 package eu.iksproject.fise.sourcesense.enhance.utils;
 
-import eu.iksproject.fise.engines.autotagging.impl.ConfiguredAutotaggerProvider;
-import eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine;
+import org.apache.stanbol.enhancer.engines.autotagging.impl.ConfiguredAutotaggerProvider;
+import org.apache.stanbol.enhancer.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine;
 import org.osgi.framework.*;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.ComponentInstance;
@@ -13,7 +13,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 /**
- * Mock {@link NamedEntityExtractionEnhancementEngine} to be able to run it in a non-OSGi env
+ * @deprecated Mock {@link NamedEntityExtractionEnhancementEngine} to be able to run it in a non-OSGi env
  */
 public class MockedNamedEntityExtractionEnhancementEngine extends NamedEntityExtractionEnhancementEngine {
   public MockedNamedEntityExtractionEnhancementEngine() {

@@ -1,7 +1,7 @@
 package eu.iksproject.fise.sourcesense.enhance;
 
-import eu.iksproject.fise.engines.opennlp.impl.NamedEntityExtractionEnhancementEngine;
-import eu.iksproject.fise.sourcesense.enhance.utils.MockedNamedEntityExtractionEnhancementEngine;
+import org.apache.stanbol.commons.opennlp.OpenNLP;
+import org.apache.stanbol.enhancer.engines.opennlp.impl.NEREngineCore;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,15 +11,17 @@ import java.util.HashSet;
  */
 public class OpenNLPEngineEnrichmentEnginesExecutor implements EnrichmentEnginesExecutor {
 
-  private NamedEntityExtractionEnhancementEngine entityExtractionEnhancementEngine;
+  private NEREngineCore entityExtractionEnhancementEngine;
 
   public OpenNLPEngineEnrichmentEnginesExecutor() {
-    entityExtractionEnhancementEngine = new MockedNamedEntityExtractionEnhancementEngine();
+
   }
+
 
   @Override
   public Collection<Tag> getTags(String content) throws Exception {
-
+    OpenNLP openNLP = new OpenNLP();
+    entityExtractionEnhancementEngine = new NEREngineCore(openNLP);
     Collection<Tag> tags = new HashSet<Tag>();
     Collection<String> personNames = entityExtractionEnhancementEngine.extractPersonNames(content);
     Collection<String> organizationNames = entityExtractionEnhancementEngine.extractOrganizationNames(content);
