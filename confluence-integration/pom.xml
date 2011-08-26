@@ -88,7 +88,7 @@
     <profile>
       <id>bundled</id>
       <properties>
-        <executor.implementation>eu.iksproject.fise.sourcesense.enhance.OpenNLPEngineEnrichmentEnginesExecutor</executor.implementation>
+        <executor.implementation>com.sourcesense.iksproject.enhance.OpenNLPEngineEnrichmentEnginesExecutor</executor.implementation>
         <profile.id>bundled</profile.id>
       </properties>
       <dependencies>
@@ -113,7 +113,7 @@
       <id>remote</id>
       <properties>
         <profile.id>remote</profile.id>
-        <executor.implementation>eu.iksproject.fise.sourcesense.enhance.FISEServerEnrichmentEnginesExecutor</executor.implementation>
+        <executor.implementation>com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor</executor.implementation>
       </properties>
     </profile>
   </profiles>

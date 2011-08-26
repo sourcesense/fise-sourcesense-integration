@@ -21,20 +21,20 @@
 <beans>
 	
 	<!-- Business logic for IKS Fise for using with the custom action (with transaction level) -->
-	<bean id="iksFiseAlfrescoBlForAction" class="eu.iksproject.fise.sourcesense.alfresco.bl.IKSFiseAlfrescoBl">
+	<bean id="iksFiseAlfrescoBlForAction" class="com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl">
 		<property name="nodeService" ref="NodeService"/>
 		<property name="contentService" ref="ContentService"/>
 	</bean>
 	
 	<!-- Business logic for IKS Fise for using with the custom behaviour (without transaction level) -->
-	<bean id="iksFiseAlfrescoBlForBehaviour" class="eu.iksproject.fise.sourcesense.alfresco.bl.IKSFiseAlfrescoBl">
+	<bean id="iksFiseAlfrescoBlForBehaviour" class="com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl">
 		<property name="nodeService" ref="nodeService"/>
 		<property name="contentService" ref="contentService"/>
 	</bean>
 	
 	<!-- IKS - FISE custom behaviour that will start for each new content in Alfresco -->
 	<bean id="iksFiseEnrichBehaviour" 
-	      class="eu.iksproject.fise.sourcesense.alfresco.policies.FISEExtractAndEnrichContentPolicy"
+	      class="com.sourcesense.iksproject.enhance.alfresco.policies.FISEExtractAndEnrichContentPolicy"
 	      init-method="init">
 		<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
 		<property name="contentService" ref="contentService"/>
@@ -42,7 +42,7 @@
 	</bean>
 	
     <!-- IKS - FISE Enrich configurable action in any space in Alfresco -->
-    <bean id="iks-fise-enrich-action" class="eu.iksproject.fise.sourcesense.alfresco.actions.FISEExtractAndEnrichContentAction" parent="action-executer">
+    <bean id="iks-fise-enrich-action" class="com.sourcesense.iksproject.enhance.alfresco.actions.FISEExtractAndEnrichContentAction" parent="action-executer">
     	<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForAction"/>
     </bean>
     
@@ -50,7 +50,7 @@
    	<bean id="iks-fise-enrich-action-messages" class="org.alfresco.i18n.ResourceBundleBootstrapComponent">
     	<property name="resourceBundles">
     		<list>
-    			<value>eu.iksproject.fise.sourcesense.alfresco.actions.iks-fise-enrich-action-messages</value>
+    			<value>com.sourcesense.iksproject.enhance.alfresco.actions.iks-fise-enrich-action-messages</value>
     		</list>
     	</property>
    	</bean>

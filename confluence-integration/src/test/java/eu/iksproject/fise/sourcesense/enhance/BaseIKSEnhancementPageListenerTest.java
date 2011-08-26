@@ -1,5 +1,6 @@
 package eu.iksproject.fise.sourcesense.enhance;
 
+import com.sourcesense.iksproject.enhance.confluence.BaseIKSEnhancementPageListener;
 import org.junit.Before;
 import org.junit.Test;
 

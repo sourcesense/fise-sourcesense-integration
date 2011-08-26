@@ -21,7 +21,7 @@ its Spring definition in the Spring context (module-context.xml) in the followin
 
 <!-- IKS - FISE custom behaviour that will start for each new content in Alfresco -->
 <bean id="iksFiseEnrichBehaviour" 
-      class="eu.iksproject.fise.sourcesense.alfresco.policies.FISEExtractAndEnrichContentPolicy"
+      class="com.sourcesense.iksproject.enhance.alfresco.policies.FISEExtractAndEnrichContentPolicy"
       init-method="init">
 	<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
 	<property name="contentService" ref="contentService"/>
@@ -33,7 +33,7 @@ To this:
 <!-- IKS - FISE custom behaviour that will start for each new content in Alfresco -->
 <!--
 <bean id="iksFiseEnrichBehaviour" 
-      class="eu.iksproject.fise.sourcesense.alfresco.policies.FISEExtractAndEnrichContentPolicy"
+      class="com.sourcesense.iksproject.enhance.alfresco.policies.FISEExtractAndEnrichContentPolicy"
       init-method="init">
 	<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
 	<property name="contentService" ref="contentService"/>
