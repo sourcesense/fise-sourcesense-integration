@@ -1,6 +1,5 @@
 package com.sourcesense.iksproject.enhance.alfresco.policies;
 
-import com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl;
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.content.MimetypeMap;
 import org.alfresco.repo.node.NodeServicePolicies;
@@ -13,6 +12,8 @@ import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.namespace.NamespaceService;
 import org.alfresco.service.namespace.QName;
+
+import com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl;
 
 /**
  * This class contains the custom behaviour to execute the enrichment of
