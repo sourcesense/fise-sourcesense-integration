@@ -24,12 +24,14 @@
 	<bean id="iksFiseAlfrescoBlForAction" class="com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl">
 		<property name="nodeService" ref="NodeService"/>
 		<property name="contentService" ref="ContentService"/>
+		<property name="taggingService" ref="TaggingService"/>
 	</bean>
 	
 	<!-- Business logic for IKS Fise for using with the custom behaviour (without transaction level) -->
 	<bean id="iksFiseAlfrescoBlForBehaviour" class="com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl">
 		<property name="nodeService" ref="nodeService"/>
 		<property name="contentService" ref="contentService"/>
+		<property name="taggingService" ref="taggingService"/>
 	</bean>
 	
 	<!-- IKS - FISE custom behaviour that will start for each new content in Alfresco -->

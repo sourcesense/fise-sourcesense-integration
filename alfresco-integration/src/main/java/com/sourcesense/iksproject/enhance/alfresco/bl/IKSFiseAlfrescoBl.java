@@ -1,21 +1,21 @@
 package com.sourcesense.iksproject.enhance.alfresco.bl;
 
-import com.sourcesense.iksproject.enhance.EnrichmentEnginesExecutor;
-import com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor;
-import com.sourcesense.iksproject.enhance.Tag;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.alfresco.model.ContentModel;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
-import org.alfresco.service.namespace.QName;
+import org.alfresco.service.cmr.tagging.TaggingService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import com.sourcesense.iksproject.enhance.EnrichmentEnginesExecutor;
+import com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor;
+import com.sourcesense.iksproject.enhance.Tag;
 
 /**
  * This class is the business logic dedicated to exchange data between Alfresco
@@ -28,6 +28,7 @@ public class IKSFiseAlfrescoBl {
   private Log log = LogFactory.getLog(IKSFiseAlfrescoBl.class);
   private NodeService nodeService;
   private ContentService contentService;
+  private TaggingService taggingService;
 
   private EnrichmentEnginesExecutor enrichmentEnginesExecutor;
 
@@ -39,7 +40,11 @@ public class IKSFiseAlfrescoBl {
     this.contentService = contentService;
   }
 
-  /**
+  public void setTaggingService(TaggingService taggingService) {
+	this.taggingService = taggingService;
+}
+
+/**
    * This is the main method that it will execute the following steps:
    * <p/>
    * 1. For each new node in the repository it sends the extracted content
@@ -63,17 +68,16 @@ public class IKSFiseAlfrescoBl {
       if (enrichmentEnginesExecutor == null)
         initializeEnrichmentEnginesExecutor();
       try {
-        log.debug("Integration with FISE: Connecting...");
         Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
+        List<String> tagNames = new LinkedList<String>();
+        for (Tag tag : tags) {
+        	tagNames.add(tag.getContent());
+        }
+        log.debug("Adding tags " + tagNames + " to the node " + nodeRef);
 
-        log.debug("Adding tags " + tags + " to the node: " + nodeRef);
-
-        // save the new properties received from Fise
-        Map<QName, Serializable> properties = new HashMap<QName, Serializable>();
-        properties.put(QName.createQName("tags"), tags.toArray());
-        nodeService.addProperties(nodeRef, properties);
+        taggingService.addTags(nodeRef, tagNames);
       } catch (Exception e) {
-        log.error(e.getLocalizedMessage());
+        log.error(e.getLocalizedMessage(), e);
       }
     }
 
