@@ -1,7 +1,7 @@
 package com.sourcesense.iksproject.enhance.alfresco.bl;
 
 import com.sourcesense.iksproject.enhance.EnrichmentEnginesExecutor;
-import com.sourcesense.iksproject.enhance.OpenNLPEngineEnrichmentEnginesExecutor;
+import com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor;
 import com.sourcesense.iksproject.enhance.Tag;
 import org.alfresco.model.ContentModel;
 import org.alfresco.service.cmr.repository.ContentReader;
@@ -66,12 +66,12 @@ public class IKSFiseAlfrescoBl {
         log.debug("Integration with FISE: Connecting...");
         Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
 
-        log.debug("Saving new properties in the node: " + nodeRef);
+        log.debug("Adding tags " + tags + " to the node: " + nodeRef);
 
         // save the new properties received from Fise
         Map<QName, Serializable> properties = new HashMap<QName, Serializable>();
         properties.put(QName.createQName("tags"), tags.toArray());
-        nodeService.setProperties(nodeRef, properties);
+        nodeService.addProperties(nodeRef, properties);
       } catch (Exception e) {
         log.error(e.getLocalizedMessage());
       }
@@ -82,7 +82,7 @@ public class IKSFiseAlfrescoBl {
 
   private void initializeEnrichmentEnginesExecutor() {
 
-    enrichmentEnginesExecutor = new OpenNLPEngineEnrichmentEnginesExecutor();
+    enrichmentEnginesExecutor = new FISEServerEnrichmentEnginesExecutor();
 
   }
 

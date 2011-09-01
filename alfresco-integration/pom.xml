@@ -1,11 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>sourcesense-integration</artifactId>
-    <groupId>com.sourcesense.iksproject</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
   <groupId>org.apache.stanbol.enhancer.sourcesense</groupId>
   <artifactId>alfresco-integration</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -108,6 +103,32 @@
       <version>3.0.5.RELEASE</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.clerezza</groupId>
+      <artifactId>org.apache.clerezza.rdf.core</artifactId>
+      <version>0.12-incubating-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.clerezza</groupId>
+      <artifactId>org.apache.clerezza.rdf.utils</artifactId>
+      <version>0.13-incubating-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.clerezza</groupId>
+      <artifactId>org.apache.clerezza.rdf.ontologies</artifactId>
+      <version>0.11-incubating-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.clerezza</groupId>
+      <artifactId>org.apache.clerezza.rdf.rdfjson</artifactId>
+      <version>0.3-incubating-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.clerezza.ext</groupId>
+      <artifactId>org.json.simple</artifactId>
+      <version>0.3-incubating-SNAPSHOT</version>
+    </dependency>
+    
     <!--
         Example Jar dependency: will be properly packed into the AMP /lib
         directory <dependency> <groupId>rome</groupId>
@@ -131,11 +152,6 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>5.0.3</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sourcesense.iksproject</groupId>
-      <artifactId>fise-engine-integration</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <!-- Don't add here amp dependencies as it will break amp packaging -->
   </dependencies>
