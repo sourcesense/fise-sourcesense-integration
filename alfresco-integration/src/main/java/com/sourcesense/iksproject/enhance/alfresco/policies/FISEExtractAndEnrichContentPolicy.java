@@ -1,6 +1,7 @@
 package com.sourcesense.iksproject.enhance.alfresco.policies;
 
 import org.alfresco.model.ContentModel;
+import org.alfresco.repo.content.ContentServicePolicies;
 import org.alfresco.repo.content.MimetypeMap;
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.Behaviour.NotificationFrequency;
@@ -10,10 +11,8 @@ import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.NodeRef;
-import org.alfresco.service.namespace.NamespaceService;
-import org.alfresco.service.namespace.QName;
 
-import com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl;
+import com.sourcesense.iksproject.enhance.alfresco.bl.SemanticEnricher;
 
 /**
  * This class contains the custom behaviour to execute the enrichment of
@@ -24,13 +23,14 @@ import com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl;
  * 
  */
 public class FISEExtractAndEnrichContentPolicy implements
-		NodeServicePolicies.OnCreateNodePolicy {
+		NodeServicePolicies.OnCreateNodePolicy,
+		ContentServicePolicies.OnContentUpdatePolicy {
 
-	private IKSFiseAlfrescoBl iksFiseAlfrescoBl;
+	private SemanticEnricher iksFiseAlfrescoBl;
 	private ContentService contentService;
 	private PolicyComponent policyComponent;
 	
-	public void setIksFiseAlfrescoBl(IKSFiseAlfrescoBl iksFiseAlfrescoBl) {
+	public void setIksFiseAlfrescoBl(SemanticEnricher iksFiseAlfrescoBl) {
 		this.iksFiseAlfrescoBl = iksFiseAlfrescoBl;
 	}
 	
@@ -44,20 +44,29 @@ public class FISEExtractAndEnrichContentPolicy implements
     }
 	
 	/**
-     * Spring initilaise method used to register the policy behaviours
+     * Spring initialization method used to register the policy behaviors
      */
     public void init()
     {
-        // Register the policy behaviours
+        // Register the policy behaviors
         this.policyComponent.bindClassBehaviour(
-        						 QName.createQName(NamespaceService.ALFRESCO_URI, "onCreateNode"),
+        						 NodeServicePolicies.OnCreateNodePolicy.QNAME,
                                  ContentModel.TYPE_CONTENT,
                                  new JavaBehaviour(this, "onCreateNode", NotificationFrequency.TRANSACTION_COMMIT));
+        this.policyComponent.bindClassBehaviour(
+				 				 ContentServicePolicies.OnContentUpdatePolicy.QNAME,
+				 				 ContentModel.TYPE_CONTENT,
+				 				 new JavaBehaviour(this, "onContentUpdate", NotificationFrequency.TRANSACTION_COMMIT));
     }
 
 	@Override
 	public void onCreateNode(ChildAssociationRef childAssociationRef) {
 		NodeRef nodeRef = childAssociationRef.getChildRef();
+		extractAndEnrichContent(nodeRef);
+	}
+
+	@Override
+	public void onContentUpdate(NodeRef nodeRef, boolean newContent) {
 		extractAndEnrichContent(nodeRef);
 	}
 	

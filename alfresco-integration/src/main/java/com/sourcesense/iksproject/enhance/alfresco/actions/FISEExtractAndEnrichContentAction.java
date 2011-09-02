@@ -1,6 +1,6 @@
 package com.sourcesense.iksproject.enhance.alfresco.actions;
 
-import com.sourcesense.iksproject.enhance.alfresco.bl.IKSFiseAlfrescoBl;
+import com.sourcesense.iksproject.enhance.alfresco.bl.SemanticEnricher;
 import org.alfresco.repo.action.executer.ActionExecuterAbstractBase;
 import org.alfresco.service.cmr.action.Action;
 import org.alfresco.service.cmr.action.ParameterDefinition;
@@ -20,9 +20,9 @@ import java.util.List;
 public class FISEExtractAndEnrichContentAction extends
 		ActionExecuterAbstractBase {
 
-	private IKSFiseAlfrescoBl iksFiseAlfrescoBl;
+	private SemanticEnricher iksFiseAlfrescoBl;
 
-	public void setIksFiseAlfrescoBl(IKSFiseAlfrescoBl iksFiseAlfrescoBl) {
+	public void setIksFiseAlfrescoBl(SemanticEnricher iksFiseAlfrescoBl) {
 		this.iksFiseAlfrescoBl = iksFiseAlfrescoBl;
 	}
 

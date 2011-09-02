@@ -18,14 +18,13 @@ import com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor;
 import com.sourcesense.iksproject.enhance.Tag;
 
 /**
- * This class is the business logic dedicated to exchange data between Alfresco
- * and the IKS Fise Engine.
+ * Enrich an Alfresco document with tags extracted from the IKS Fise Engine.
  *
  * @author Piergiorgio Lucidi
  */
-public class IKSFiseAlfrescoBl {
+public class SemanticEnricher {
 
-  private Log log = LogFactory.getLog(IKSFiseAlfrescoBl.class);
+  private Log log = LogFactory.getLog(SemanticEnricher.class);
   private NodeService nodeService;
   private ContentService contentService;
   private TaggingService taggingService;
