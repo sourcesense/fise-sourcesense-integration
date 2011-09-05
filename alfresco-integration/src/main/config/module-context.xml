@@ -28,6 +28,12 @@
 		<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
 		<property name="contentService" ref="contentService"/>
 		<property name="policyComponent" ref="policyComponent"/>
+    	<property name="transactionService">
+    		<ref bean="transactionService"/>
+    	</property>
+    	<property name="threadExecutor">
+        	<ref bean="defaultAsyncThreadPool"/>
+    	</property>
 	</bean>
 	
     <!-- IKS - FISE Enrich configurable action in any space in Alfresco -->

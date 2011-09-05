@@ -1,20 +1,21 @@
 package com.sourcesense.iksproject.enhance.alfresco.bl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.alfresco.model.ContentModel;
+import org.alfresco.repo.security.authentication.AuthenticationUtil;
+import org.alfresco.repo.security.authentication.AuthenticationUtil.RunAsWork;
 import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.NodeRef;
-import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.cmr.tagging.TaggingService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.sourcesense.iksproject.enhance.EnrichmentEnginesExecutor;
-import com.sourcesense.iksproject.enhance.FISEServerEnrichmentEnginesExecutor;
 import com.sourcesense.iksproject.enhance.Tag;
 
 /**
@@ -52,7 +53,7 @@ public class SemanticEnricher {
 	 *
 	 * @param nodeRef
 	 */
-	public void extractAndEnrichContent(NodeRef nodeRef) {
+	public Collection<String> extractAndEnrichContent(final NodeRef nodeRef) {
 
 		//getting the content from node
 		ContentReader contentReader = contentService.getReader(nodeRef,
@@ -64,19 +65,24 @@ public class SemanticEnricher {
 		if (mimetype.startsWith("text/")) {
 			try {
 				Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
-				List<String> tagNames = new LinkedList<String>();
+				final List<String> tagNames = new LinkedList<String>();
 				for (Tag tag : tags) {
 					tagNames.add(tag.getContent());
 				}
-				log.debug("Adding tags " + tagNames + " to the node " + nodeRef);
+				// We have to run as admin to manipulate tags
+				return AuthenticationUtil.runAs(new RunAsWork<Collection<String>>() {
 
-				taggingService.addTags(nodeRef, tagNames);
+					@Override
+					public Collection<String> doWork() throws Exception {
+						taggingService.addTags(nodeRef, tagNames);
+						return tagNames;
+					}
+				}, "admin");
 			} catch (Exception e) {
 				log.error(e.getLocalizedMessage(), e);
 			}
 		}
-
-
+		return Collections.emptyList();
 	}
 
 }
