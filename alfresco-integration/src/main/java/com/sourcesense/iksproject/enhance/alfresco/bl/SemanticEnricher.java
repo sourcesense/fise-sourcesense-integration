@@ -24,69 +24,59 @@ import com.sourcesense.iksproject.enhance.Tag;
  */
 public class SemanticEnricher {
 
-  private Log log = LogFactory.getLog(SemanticEnricher.class);
-  private NodeService nodeService;
-  private ContentService contentService;
-  private TaggingService taggingService;
+	private Log log = LogFactory.getLog(SemanticEnricher.class);
+	private ContentService contentService;
+	private TaggingService taggingService;
+	private EnrichmentEnginesExecutor enrichmentEnginesExecutor;
 
-  private EnrichmentEnginesExecutor enrichmentEnginesExecutor;
+	public void setContentService(ContentService contentService) {
+		this.contentService = contentService;
+	}
 
-  public void setNodeService(NodeService nodeService) {
-    this.nodeService = nodeService;
-  }
+	public void setTaggingService(TaggingService taggingService) {
+		this.taggingService = taggingService;
+	}
 
-  public void setContentService(ContentService contentService) {
-    this.contentService = contentService;
-  }
+	public void setEnrichmentEnginesExecutor(EnrichmentEnginesExecutor enrichmentEnginesExecutor) {
+		this.enrichmentEnginesExecutor = enrichmentEnginesExecutor;
+	}
 
-  public void setTaggingService(TaggingService taggingService) {
-	this.taggingService = taggingService;
-}
+	/**
+	 * This is the main method that it will execute the following steps:
+	 * <p/>
+	 * 1. For each new node in the repository it sends the extracted content
+	 * from Alfresco to the FISE engine
+	 * <p/>
+	 * 2. Takes the response from FISE to enrich metadata for the current node
+	 * in Alfresco
+	 *
+	 * @param nodeRef
+	 */
+	public void extractAndEnrichContent(NodeRef nodeRef) {
 
-/**
-   * This is the main method that it will execute the following steps:
-   * <p/>
-   * 1. For each new node in the repository it sends the extracted content
-   * from Alfresco to the FISE engine
-   * <p/>
-   * 2. Takes the response from FISE to enrich metadata for the current node
-   * in Alfresco
-   *
-   * @param nodeRef
-   */
-  public void extractAndEnrichContent(NodeRef nodeRef) {
+		//getting the content from node
+		ContentReader contentReader = contentService.getReader(nodeRef,
+				ContentModel.PROP_CONTENT);
 
-    //getting the content from node
-    ContentReader contentReader = contentService.getReader(nodeRef,
-            ContentModel.PROP_CONTENT);
+		String mimetype = contentReader.getMimetype();
+		String content = contentReader.getContentString();
 
-    String mimetype = contentReader.getMimetype();
-    String content = contentReader.getContentString();
+		if (mimetype.startsWith("text/")) {
+			try {
+				Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
+				List<String> tagNames = new LinkedList<String>();
+				for (Tag tag : tags) {
+					tagNames.add(tag.getContent());
+				}
+				log.debug("Adding tags " + tagNames + " to the node " + nodeRef);
 
-    if (mimetype.startsWith("text/")) {
-      if (enrichmentEnginesExecutor == null)
-        initializeEnrichmentEnginesExecutor();
-      try {
-        Collection<Tag> tags = enrichmentEnginesExecutor.getTags(content);
-        List<String> tagNames = new LinkedList<String>();
-        for (Tag tag : tags) {
-        	tagNames.add(tag.getContent());
-        }
-        log.debug("Adding tags " + tagNames + " to the node " + nodeRef);
-
-        taggingService.addTags(nodeRef, tagNames);
-      } catch (Exception e) {
-        log.error(e.getLocalizedMessage(), e);
-      }
-    }
+				taggingService.addTags(nodeRef, tagNames);
+			} catch (Exception e) {
+				log.error(e.getLocalizedMessage(), e);
+			}
+		}
 
 
-  }
-
-  private void initializeEnrichmentEnginesExecutor() {
-
-    enrichmentEnginesExecutor = new FISEServerEnrichmentEnginesExecutor();
-
-  }
+	}
 
 }
