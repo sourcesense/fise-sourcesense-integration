@@ -1,16 +1,15 @@
 package com.sourcesense.iksproject.enhance.alfresco.policies;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.content.ContentServicePolicies;
-import org.alfresco.repo.content.MimetypeMap;
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.Behaviour.NotificationFrequency;
+import org.alfresco.repo.policy.BehaviourFilter;
 import org.alfresco.repo.policy.JavaBehaviour;
 import org.alfresco.repo.policy.PolicyComponent;
 import org.alfresco.repo.transaction.AlfrescoTransactionSupport;
@@ -19,8 +18,6 @@ import org.alfresco.repo.transaction.RetryingTransactionHelper.RetryingTransacti
 import org.alfresco.repo.transaction.TransactionListener;
 import org.alfresco.repo.transaction.TransactionListenerAdapter;
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
-import org.alfresco.service.cmr.repository.ContentReader;
-import org.alfresco.service.cmr.repository.ContentService;
 import org.alfresco.service.cmr.repository.InvalidNodeRefException;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.transaction.TransactionService;
@@ -42,10 +39,10 @@ public class FISEExtractAndEnrichContentPolicy implements
     private static final String KEY_UPDATED_NODES = FISEExtractAndEnrichContentPolicy.class.getName() + ".nodes";
 
 	private SemanticEnricher iksFiseAlfrescoBl;
-	private ContentService contentService;
 	private TransactionService transactionService;
 	private PolicyComponent policyComponent;
     private ThreadPoolExecutor threadExecutor;
+    private BehaviourFilter behaviourFilter;
     
     private TransactionListener transactionListener;
 
@@ -57,10 +54,6 @@ public class FISEExtractAndEnrichContentPolicy implements
 	
 	public void setIksFiseAlfrescoBl(SemanticEnricher iksFiseAlfrescoBl) {
 		this.iksFiseAlfrescoBl = iksFiseAlfrescoBl;
-	}
-	
-	public void setContentService(ContentService contentService) {
-		this.contentService = contentService;
 	}
 
 	public void setTransactionService(TransactionService transactionService)
@@ -78,6 +71,10 @@ public class FISEExtractAndEnrichContentPolicy implements
         this.threadExecutor = threadExecutor;
     }
 	
+	public void setBehaviourFilter(BehaviourFilter behaviourFilter) {
+		this.behaviourFilter = behaviourFilter;
+	}
+
 	/**
      * Spring initialization method used to register the policy behaviors
      */
@@ -124,24 +121,6 @@ public class FISEExtractAndEnrichContentPolicy implements
         }
         updatedNodes.add(nodeRef);
 	}
-	
-	private boolean checkMimetype(NodeRef nodeRef) {
-		
-		/**
-		 * TODO What are all the supported mimetypes?
-		 */
-		
-		ContentReader contentReader = contentService.getReader(nodeRef,
-				ContentModel.PROP_CONTENT);
-		String mimetype = contentReader.getMimetype();
-		if (MimetypeMap.MIMETYPE_PDF.equals(mimetype)
-				|| MimetypeMap.MIMETYPE_HTML.equals(mimetype)
-				|| MimetypeMap.MIMETYPE_OPENDOCUMENT_TEXT.equals(mimetype)
-				|| MimetypeMap.MIMETYPE_TEXT_PLAIN.equals(mimetype))
-			return true;
-		else
-			return false;
-	}
     
     private class SemanticEnricherTransactionListener extends TransactionListenerAdapter
     {
@@ -174,15 +153,15 @@ public class FISEExtractAndEnrichContentPolicy implements
             RetryingTransactionCallback<Collection<String>> callback = new RetryingTransactionCallback<Collection<String>>() {
                 public Collection<String> execute() throws Throwable {
                     try {
-                		if (checkMimetype(nodeRef)) {
-                			Collection<String> tags = iksFiseAlfrescoBl.extractAndEnrichContent(nodeRef);
-                			if (logger.isDebugEnabled()) {
-                				logger.debug("New tags for node " + nodeRef + ": " + tags);
-                			}
-                		}
-                    	return Collections.emptyList();
+                    	behaviourFilter.disableBehaviour(ContentModel.TYPE_CONTENT);
+            			Collection<String> tags = iksFiseAlfrescoBl.extractAndEnrichContent(nodeRef);
+            			if (logger.isDebugEnabled()) {
+            				logger.debug("New tags for node " + nodeRef + ": " + tags);
+            			}
+                    	return tags;
                     }
                     finally {
+                    	behaviourFilter.enableBehaviour(ContentModel.TYPE_CONTENT);
                     }
                 }
             };
@@ -194,17 +173,12 @@ public class FISEExtractAndEnrichContentPolicy implements
             {
                 if (logger.isDebugEnabled())
                 {
-                    logger.debug("Unable to update tags on missing node: " + nodeRef);
+                    logger.error("Unable to update tags on missing node: " + nodeRef);
                 }
             }
             catch (Throwable e)
             {
-                if (logger.isDebugEnabled())
-                {
-                    logger.debug(e);
-                }
-                logger.error("Failed to update tags on node: " + nodeRef);
-                // We are the last call on the thread
+                logger.error(e.getLocalizedMessage(), e);
             }
         }
     }

@@ -9,15 +9,21 @@
 	
 	<!-- Business logic for IKS Fise for using with the custom action (with transaction level) -->
 	<bean id="iksFiseAlfrescoBlForAction" class="com.sourcesense.iksproject.enhance.alfresco.bl.SemanticEnricher">
+		<property name="nodeService" ref="NodeService"/>
 		<property name="contentService" ref="ContentService"/>
 		<property name="taggingService" ref="TaggingService"/>
+		<property name="dictionaryService" ref="dictionaryService"/>
+		<property name="contentTransformerRegistry" ref="contentTransformerRegistry"/>
 		<property name="enrichmentEnginesExecutor" ref="enrichmentEnginesExecutor"/>
 	</bean>
 	
 	<!-- Business logic for IKS Fise for using with the custom behaviour (without transaction level) -->
 	<bean id="iksFiseAlfrescoBlForBehaviour" class="com.sourcesense.iksproject.enhance.alfresco.bl.SemanticEnricher">
+		<property name="nodeService" ref="nodeService"/>
 		<property name="contentService" ref="contentService"/>
 		<property name="taggingService" ref="taggingService"/>
+		<property name="dictionaryService" ref="dictionaryService"/>
+		<property name="contentTransformerRegistry" ref="contentTransformerRegistry"/>
 		<property name="enrichmentEnginesExecutor" ref="enrichmentEnginesExecutor"/>
 	</bean>
 	
@@ -26,14 +32,10 @@
 	      class="com.sourcesense.iksproject.enhance.alfresco.policies.FISEExtractAndEnrichContentPolicy"
 	      init-method="init">
 		<property name="iksFiseAlfrescoBl" ref="iksFiseAlfrescoBlForBehaviour"/>
-		<property name="contentService" ref="contentService"/>
 		<property name="policyComponent" ref="policyComponent"/>
-    	<property name="transactionService">
-    		<ref bean="transactionService"/>
-    	</property>
-    	<property name="threadExecutor">
-        	<ref bean="defaultAsyncThreadPool"/>
-    	</property>
+    	<property name="transactionService" ref="transactionService"/>
+    	<property name="threadExecutor" ref="defaultAsyncThreadPool"/>
+        <property name="behaviourFilter" ref="policyBehaviourFilter"/>
 	</bean>
 	
     <!-- IKS - FISE Enrich configurable action in any space in Alfresco -->
